@@ -1,5 +1,5 @@
 const fs = require('fs');
-const patch = require('path');
+const path = require('path');
 const filePath = path.join(__dirname,'../db/events.json');
 
 // Per leggere il file json
@@ -32,3 +32,5 @@ class event {
             fs.writeFileSync(filePath, JSON.stringify(data, null, 2));
         }
     }
+
+    module.exports = event;
