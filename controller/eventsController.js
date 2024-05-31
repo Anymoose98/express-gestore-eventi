@@ -3,24 +3,24 @@ const fs = require("fs");
 const eventsdb = require("../db/events.json")
 const classEvent = require("../models/event.js")
 
+let events = classEvent.readFile();
 
 const index = (req, res) => {
-    res.format({
-        html: () => {
-            let html = 'index'
-            res.send(html)
-        }
-    })
+    const id = req.query
+
+    if(Object.keys(id).length !== 0) {
+        classEvent.getEventById(id, res)
+    }
+    else{
+        classEvent.allEvents(events, res);
+    }
 }
 
 const store = (req, res) => {
 
-    let events = classEvent.readFile();
-
     // prendo i dati 
     const { id, title, description, date, maxSeats } = req.body;
 
-    console.log(id)
     // richiamo la classe event
     const NuovoEvento = new classEvent(id, title, description, date, maxSeats)
 
